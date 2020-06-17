@@ -1,0 +1,32 @@
+.search {
+    position: relative;
+
+    color: white;
+    border-color: transparent;
+    background-color: transparent;
+
+    align-items: center;
+    justify-content: center;
+    appearance: none;
+}
+
+.search__input {
+    width: 100%;
+}
+
+.search__content {
+    min-width: 100px;
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+
+    display: none;
+
+    border: 1px solid #aaaaaa;
+    background-color: #aaaaaa;
+    box-shadow: 0 10px 30px gray;
+}
+
+.search__content_open {
+    display: block;
+}
