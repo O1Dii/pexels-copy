@@ -7,16 +7,18 @@ import TopSection from '../TopSection/TopSection';
 import NavigationBar from '../NavigationBar/NavigationBar';
 import MainSection from '../MainSection/MainSection';
 
-function HomePage({ className, topSectionBackgroundImage, photos, getPhotos }) {
+function HomePage({ className, topSectionBackgroundImage, topic, photos, getPhotos, searchPhotos }) {
+  const loadPhotosFunction = topic ? (...args) => searchPhotos(topic, ...args) : getPhotos;
+
   useEffect(() => {
-    getPhotos();
-  }, []);
+    loadPhotosFunction();
+  }, [topic]);
 
   return (
     <div className={classnames('home-page', className)}>
       <NavigationBar />
       <TopSection backgroundImageUrl={topSectionBackgroundImage} />
-      <MainSection getPhotos={getPhotos} photos={photos} />
+      <MainSection loadPhotosConsecutive={loadPhotosFunction} photos={photos} />
     </div>
   );
 }

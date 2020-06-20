@@ -5,15 +5,17 @@ import classnames from 'classnames';
 
 import InfiniteScroll from 'react-infinite-scroll-component';
 
-function MainSection({ className, getPhotos, photos }) {
+function MainSection({ className, loadPhotosConsecutive, photos }) {
   // Тут тяжело делать колонки, как у них. На это надо время, надеюсь, ты с этим сама справишься)
 
   const [counter, setCounter] = useState(2);
 
   const nextPhotos = () => {
-    getPhotos(counter);
+    loadPhotosConsecutive(counter);
     setCounter(counter + 1);
-  }
+  };
+
+  console.log(photos);
 
   return (
     <div className={classnames('main-section', className)}>
@@ -26,7 +28,7 @@ function MainSection({ className, getPhotos, photos }) {
         dataLength={photos.length}>
         <div className="main-section__containers-container">
           <div className="main-section__container">
-            {photos.map(each => <img src={each.src.tiny} />)}
+            {photos.map(each => <img key={each.id} src={each.src.tiny} />)}
           </div>
         </div>
       </InfiniteScroll>

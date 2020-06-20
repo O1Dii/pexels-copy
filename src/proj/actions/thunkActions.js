@@ -25,9 +25,9 @@ export const getPhotos = (page) => async (dispatch) => {
 };
 
 // Это для примера
-export const searchPhotos = (topic) => async (dispatch) => {
+export const searchPhotos = (topic, page) => async (dispatch) => {
   try {
-    const response = await requests.GET(API_URL + 'search/', topic ? {query: topic} : undefined, API_KEY);
+    const response = await requests.GET(API_URL + 'search/', topic ? {query: topic, page} : undefined, API_KEY);
     const json = await response.json();
 
     if (!response.ok) {
@@ -36,7 +36,11 @@ export const searchPhotos = (topic) => async (dispatch) => {
 
     console.log(json);
 
-    dispatch(setPhotos(json));
+    if (page) {
+      dispatch(appendPhotos(json.photos));
+    } else {
+      dispatch(setPhotos(json.photos));
+    }
   } catch (errorMessage) {
     console.error(errorMessage);
   }
